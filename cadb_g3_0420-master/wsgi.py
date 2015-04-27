@@ -540,19 +540,15 @@ class Hello(object):
     # Gear(midx, midy, rp, n=20, pa=20, color="black"):
     # 模數決定齒的尺寸大小, 囓合齒輪組必須有相同的模數與壓力角
     # 壓力角 pa 單位為角度
-    pa = 20
-    # m 為模數
-    m = 20
-    # 第1齒輪齒數
-    n_g1 = 13
-    # 第2齒輪齒數
-    n_g2 = 10
-    # 第3齒輪齒數
-    n_g3 = 23
-    # 計算三齒輪的節圓半徑
+
+    n_g1 = int(input("齒數"))
+    m = int(input("模數"))
+    pa = int(input("壓力角"))
+
+    # 計算兩齒輪的節圓半徑
     rp_g1 = m*n_g1/2
-    rp_g2 = m*n_g2/2
-    rp_g3 = m*n_g3/2
+
+
     # 將第1齒輪順時鐘轉 90 度
     # 使用 ctx.save() 與 ctx.restore() 以確保各齒輪以相對座標進行旋轉繪圖
     ctx.save()
@@ -565,31 +561,10 @@ class Hello(object):
     spur.Spur(ctx).Gear(400,400,rp_g1,n_g1, pa, "blue")
     ctx.restore()
 
-    # 將第2齒輪逆時鐘轉 90 度之後, 再多轉一齒, 以便與第1齒輪進行囓合
-    ctx.save()
-    # translate to the origin of second gear
-    ctx.translate(400+rp_g1+rp_g2,400)
-    # rotate to engage
-    ctx.rotate(-pi/2-pi/n_g2)
-    # put it back
-    ctx.translate(-(400+rp_g1+rp_g2),-400)
-    spur.Spur(ctx).Gear(400+rp_g1+rp_g2,400,rp_g2,n_g2, pa, "black")
-    ctx.restore()
 
-    # 假如第3齒也要進行囓合, 又該如何進行繪圖?
-    #spur.Spur(ctx).Gear(400,400,100,12, pa, "red")
-    ctx.save()
-    # translate to the second of third gear
-    ctx.translate(400+rp_g1+rp_g2+rp_g3,400)
-    # rotate to engage
-    ctx.rotate(-pi/2-pi/n_g2+pi/n_g3)
-    # put it back
-    ctx.translate(-(400+rp_g1+rp_g2+rp_g3),-400)
-    spur.Spur(ctx).Gear(400+rp_g1+rp_g2+rp_g3,400+rp_g2,rp_g3,n_g3, pa, "red")
-    ctx.restore()
 
     </script>
-    <canvas id="plotarea" width="1200" height="1200"></canvas>
+    <canvas id="plotarea" width="2000" height="2000"></canvas>
     </body>
     </html>
     '''
